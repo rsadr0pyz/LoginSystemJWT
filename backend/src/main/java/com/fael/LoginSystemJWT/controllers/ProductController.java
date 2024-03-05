@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fael.LoginSystemJWT.dtos.ProductDto;
-import com.fael.LoginSystemJWT.entities.ProductEntity;
+import com.fael.LoginSystemJWT.models.Product.ProductEntity;
 import com.fael.LoginSystemJWT.services.ProductService;
 
 import jakarta.validation.Valid;

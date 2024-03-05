@@ -1,4 +1,4 @@
-package com.fael.LoginSystemJWT.entities;
+package com.fael.LoginSystemJWT.models.Product;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
