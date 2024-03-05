@@ -1,0 +1,17 @@
+spring:
+    datasource:
+        url: jdbc:mysql://database:3306/login_project_db
+        username: root
+        password: abacate
+    jpa:
+        show-sql: true
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                format-sql: true
+
+    sql:
+        init:
+            mode: never
+            continue-on-error: false

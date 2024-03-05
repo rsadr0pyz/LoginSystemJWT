@@ -1,0 +1,18 @@
+ARG BUILD_PATH=/usr/app
+
+
+# Building image
+FROM maven:3.8.3-openjdk-17 AS maven
+ARG BUILD_PATH
+RUN mkdir -p $BUILD_PATH
+WORKDIR $BUILD_PATH
+COPY . . 
+RUN mvn clean package -Dmaven.test.skip
+
+
+# Final image
+FROM eclipse-temurin:17-jdk-alpine
+ARG BUILD_PATH
+COPY --from=maven $BUILD_PATH/target/app.jar /
+
+ENTRYPOINT ["java", "-jar", "/app.jar"]
