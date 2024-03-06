@@ -15,3 +15,9 @@ spring:
         init:
             mode: never
             continue-on-error: false
+
+api:
+    security:
+        token:
+            secret: jorge
+

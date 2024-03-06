@@ -7,10 +7,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;;
 
 public enum UserRole {
-        ADMIN("admin", List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), 
+        ADMIN("ADMIN", List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), 
                                     new SimpleGrantedAuthority("ROLE_USER"))),
 
-        USER("admin", List.of(new SimpleGrantedAuthority("ROLE_USER")));
+        USER("USER", List.of(new SimpleGrantedAuthority("ROLE_USER")));
 
 
 
