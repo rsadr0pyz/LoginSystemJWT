@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { LoginDto } from '../Dtos/LoginDto';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Environment } from '../../environment/Environment';
@@ -11,7 +11,7 @@ import { Observable, ObservableInput, catchError, firstValueFrom, lastValueFrom,
 @Injectable({
         providedIn: 'root'
 })
-export class UserLoginService {
+export class UserLoginService{
         
         private _loginToken: string = "";
 
@@ -25,18 +25,31 @@ export class UserLoginService {
 
         private readonly authUrl = `${Environment.ApiBaseUrl}/auth`;
 
-        constructor(private http: HttpClient) { }
+        constructor(private http: HttpClient) { 
+                let token = window.localStorage.getItem("loginToken");
+                if(token != null){
+                        this.loginToken = token;
+                }
+        }
 
         public async login(loginDto: LoginDto): Promise<boolean> {
                 let succed = await lastValueFrom(this.http.post<LoginResponseDto>(`${this.authUrl}/login`, loginDto)
                                         .pipe(
-                                                tap(res => this.loginToken = res.token),
+                                                tap(res =>{
+                                                        this.loginToken = res.token
+                                                        window.localStorage.setItem("loginToken", res.token);
+                                                }),
                                                 map(() => true),
                                                 catchError(() => of(false)),
                                         )
                                 );
                 
                 return succed;
+        }
+
+        public logOut(): void{
+                this.loginToken = "";
+                window.localStorage.removeItem("loginToken");
         }
 
         public get isLoggedIn(): boolean {

@@ -1,7 +1,7 @@
 <button *ngIf="!isLoggedIn" routerLink="/login">Log in</button>
 
 <ng-container *ngIf="isLoggedIn">
-        <p>Welcome!</p>
+        <p style="display: inline;">Welcome! </p> <button (click)="logout()"><b>Logout</b></button>
         <br>
         <p>Products:</p>
         <br>

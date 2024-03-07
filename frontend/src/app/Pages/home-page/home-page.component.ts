@@ -6,27 +6,31 @@ import { ProductDto } from '../../Dtos/ProductDto';
 import { ProductsService } from '../../Services/products.service';
 
 @Component({
-  selector: 'app-home-page',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './home-page.component.html',
-  styleUrl: './home-page.component.css'
+        selector: 'app-home-page',
+        standalone: true,
+        imports: [CommonModule, RouterModule],
+        templateUrl: './home-page.component.html',
+        styleUrl: './home-page.component.css'
 })
-export class HomePageComponent implements OnInit{
-  
-  products: ProductDto[] = [];
+export class HomePageComponent implements OnInit {
 
-  public get isLoggedIn(){
-    return this.userLoginService.isLoggedIn;
-  }
+        products: ProductDto[] = [];
 
-  constructor(private userLoginService: UserLoginService, private productsService: ProductsService) {}
+        public get isLoggedIn() {
+                return this.userLoginService.isLoggedIn;
+        }
 
-  ngOnInit(): void {
-    if(this.isLoggedIn){
-      this.productsService.getAll().subscribe(res =>{
-        this.products = res;
-      })
-    }
-  }
+        constructor(private userLoginService: UserLoginService, private productsService: ProductsService) { }
+
+        ngOnInit(): void {
+                if (this.isLoggedIn) {
+                        this.productsService.getAll().subscribe(res => {
+                                this.products = res;
+                        })
+                }
+        }
+
+        logout(){
+                this.userLoginService.logOut();
+        }
 }
