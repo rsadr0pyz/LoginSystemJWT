@@ -1,3 +1,18 @@
 <button *ngIf="!isLoggedIn" routerLink="/login">Log in</button>
-<p *ngIf="isLoggedIn">Welcome!</p>
+
+<ng-container *ngIf="isLoggedIn">
+        <p>Welcome!</p>
+        <br>
+        <p>Products:</p>
+        <br>
+
+        <ng-container *ngFor="let prod of products">
+                <br>
+                <p>Name: {{prod.name}}</p>
+                <p>Price: {{prod.price}}</p>
+                <p>Amount: {{prod.amount}}</p>
+        </ng-container>
+        
+
+</ng-container>
 
