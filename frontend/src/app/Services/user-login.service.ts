@@ -12,7 +12,7 @@ import { Observable, ObservableInput, catchError, firstValueFrom, lastValueFrom,
         providedIn: 'root'
 })
 export class UserLoginService {
-
+        
         private _loginToken: string = "";
 
         public get loginToken(): string {
@@ -39,5 +39,8 @@ export class UserLoginService {
                 return succed;
         }
 
+        public get isLoggedIn(): boolean {
+                return this.loginToken.length > 0;
+        }
 
 }

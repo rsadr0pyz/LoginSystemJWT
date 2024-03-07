@@ -1,5 +1,7 @@
 <form [formGroup]="loginForm" (ngSubmit)="OnSubmit()">
 
+        <p *ngIf="displayLoginError" style="color: red;">Incorrect login or password</p>
+
         <label for="login">Login</label><br>
         <input id="login" formControlName="login">
         
@@ -11,4 +13,4 @@
         <br><br>
 
         <button type="submit">Login</button>
-</form>
+</form> 
