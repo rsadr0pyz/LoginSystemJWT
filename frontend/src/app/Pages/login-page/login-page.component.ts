@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginDto } from '../../Dtos/LoginDto';
+import { UserLoginService } from '../../Services/user-login.service';
 
 @Component({
         selector: 'app-login-page',
@@ -23,6 +24,8 @@ export class LoginPageComponent {
 
         })
 
+        constructor(private loginService: UserLoginService){}
+
 
         OnSubmit(): void {
                 if (this.loginForm.valid) {
@@ -31,6 +34,9 @@ export class LoginPageComponent {
                                 password: this.loginForm.controls["password"].value,
                         }
                         
+                        this.loginService.login(loginObj).then(succed =>{
+                                console.log(succed);
+                        })
                 }
         }
 
