@@ -17,6 +17,8 @@ import com.fael.LoginSystemJWT.models.User.UserEntity;
 import com.fael.LoginSystemJWT.repositories.UserRepository;
 import com.fael.LoginSystemJWT.services.TokenService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("auth")
 public class AuthenticationController {
@@ -35,7 +37,7 @@ public class AuthenticationController {
         
 
         @PostMapping("/login")
-        public ResponseEntity<?> login(@RequestBody LoginDto loginDto){
+        public ResponseEntity<?> login(@RequestBody @Valid LoginDto loginDto){
 
               var usernamePassword = new UsernamePasswordAuthenticationToken(loginDto.login(), loginDto.password());  
               var auth = authenticationManager.authenticate(usernamePassword);
@@ -45,7 +47,7 @@ public class AuthenticationController {
         }
 
         @PostMapping("/register")
-        public ResponseEntity<?> register(@RequestBody RegisterDto registerDto){
+        public ResponseEntity<?> register(@RequestBody @Valid RegisterDto registerDto){
 
                 if(userRepository.findByLogin(registerDto.login()) != null){
                         return ResponseEntity.badRequest().build();

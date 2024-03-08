@@ -39,6 +39,8 @@ public class SecurityConfiguration {
                                                         .permitAll();
                                         authorize.requestMatchers(HttpMethod.POST, "/api/products/register")
                                                         .hasRole(UserRole.ADMIN.getRole());
+                                        authorize.requestMatchers(HttpMethod.POST, "/api/products/update*")
+                                                        .hasRole(UserRole.ADMIN.getRole());
                                         authorize.anyRequest().authenticated();
                                 })
                                 .build();
