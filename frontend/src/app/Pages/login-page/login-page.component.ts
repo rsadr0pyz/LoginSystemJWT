@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LoginDto } from '../../Dtos/LoginDto';
-import { UserLoginService } from '../../Services/user-login.service';
-import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { LoginFormComponent } from '../../Components/login-form/login-form.component';
 
 @Component({
@@ -15,5 +11,9 @@ import { LoginFormComponent } from '../../Components/login-form/login-form.compo
 })
 export class LoginPageComponent {
 
+        constructor(private router: Router){}
 
+        onLogin(){
+                this.router.navigate(["/home"])
+        }
 }

@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
 import { LoginDto } from '../../Dtos/LoginDto';
 import { UserLoginService } from '../../Services/user-login.service';
 import { CommonModule } from '@angular/common';
@@ -8,11 +7,15 @@ import { CommonModule } from '@angular/common';
 @Component({
         selector: 'app-login-form',
         standalone: true,
-        imports: [CommonModule, ReactiveFormsModule, RouterModule],
+        imports: [CommonModule, ReactiveFormsModule],
         templateUrl: './login-form.component.html',
         styleUrl: './login-form.component.css'
 })
 export class LoginFormComponent {
+
+        @Output()
+        onLogin = new EventEmitter();
+
         loginForm = new FormGroup({
 
                 login: new FormControl("", {
@@ -26,7 +29,7 @@ export class LoginFormComponent {
 
         })
 
-        constructor(private loginService: UserLoginService, private router: Router) { }
+        constructor(private loginService: UserLoginService) { }
 
 
         displayLoginError: boolean = false
@@ -41,7 +44,7 @@ export class LoginFormComponent {
                         this.loginService.login(loginObj).then(succeed => {
                                 if (succeed) {
                                         this.displayLoginError = false;
-                                        this.router.navigate(["/home"]);
+                                        this?.onLogin.emit();
                                 } else {
                                         this.displayLoginError = true;
                                 }
