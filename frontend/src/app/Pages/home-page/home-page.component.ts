@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ProductDto } from '../../Dtos/ProductDto';
 import { ProductsService } from '../../Services/products.service';
 import { ProductsTableComponent } from '../../Components/products-table/products-table.component';
+import { Product } from '../../Models/Product';
 
 @Component({
         selector: 'app-home-page',
@@ -15,7 +16,7 @@ import { ProductsTableComponent } from '../../Components/products-table/products
 })
 export class HomePageComponent implements OnInit {
 
-        products: ProductDto[] = [];
+        products: Product[] = [];
 
         loggedUser = this.userLoginService.loggedUser;
 

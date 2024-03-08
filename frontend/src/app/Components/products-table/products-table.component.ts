@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DataTableComponent } from '../data-table/data-table.component';
 import { ProductRowViewComponent } from './row-view/product-row-view';
-import { ProductDto } from '../../Dtos/ProductDto';
+import { Product } from '../../Models/Product';
 
 @Component({
   selector: 'app-products-table',
@@ -13,9 +13,9 @@ import { ProductDto } from '../../Dtos/ProductDto';
 export class ProductsTableComponent {
   
   @Input()
-  productList: ProductDto[] = [];
+  productList: Product[] = [];
 
-  validKeys: (keyof ProductDto)[] = ["name", "price", "amount"];
+  validKeys: (keyof Product)[] = ["name", "price", "amount"];
 
   rowView = ProductRowViewComponent;
   

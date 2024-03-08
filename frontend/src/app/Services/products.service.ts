@@ -4,6 +4,7 @@ import { Environment } from "../../environment/Environment";
 import { UserLoginService } from "./user-login.service";
 import { Observable } from "rxjs";
 import { ProductDto } from "../Dtos/ProductDto";
+import { Product } from "../Models/Product";
 
 
 @Injectable({
@@ -15,13 +16,16 @@ export class ProductsService{
 
         constructor(private http: HttpClient, private loginService: UserLoginService) {}
 
-        public getAll(): Observable<ProductDto[]>{
+        public getAll(): Observable<Product[]>{
                 var reqHeader = new HttpHeaders({ 
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer' + this.loginService.loginToken
                 });
 
-                return this.http.get<ProductDto[]>(`${this.apiBaseUrl}/all`, {headers: reqHeader})
+                return this.http.get<Product[]>(`${this.apiBaseUrl}/all`, {headers: reqHeader})
+        }
 
+        public update(product: Product){
+                
         }
 }

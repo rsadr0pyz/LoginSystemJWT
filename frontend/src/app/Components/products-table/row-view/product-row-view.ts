@@ -1,6 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ProductDto } from '../../../Dtos/ProductDto';
 import { ProductFormComponent } from '../../product-form/product-form.component';
+import { Product } from '../../../Models/Product';
+import { ProductsService } from '../../../Services/products.service';
+
 
 @Component({
   selector: 'app-row-view',
@@ -12,11 +15,18 @@ import { ProductFormComponent } from '../../product-form/product-form.component'
 export class ProductRowViewComponent {
 
   @Input({alias: "data"})
-  product !: ProductDto;
+  product !: Product;
   
+  @Output()
+  newProductSubmited = new EventEmitter<Product>()
+
+  constructor(private productService: ProductsService) {}
 
   onSubmitProductForm(productDto: ProductDto){
-    console.log(productDto);
+    let newProduct: Product = Product.fromDto(this.product.id, productDto);
+    Object.assign(this.product, newProduct); //Changing it this way makes so that the parent also get the changes.
+
+    this.productService.update(this.product);
   }
   
 }
