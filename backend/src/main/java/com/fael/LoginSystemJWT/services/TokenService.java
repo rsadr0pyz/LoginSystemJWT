@@ -1,8 +1,4 @@
-package com.fael.LoginSystemJWT.infra.security;
-
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+package com.fael.LoginSystemJWT.services;
 
 import org.springframework.stereotype.Service;
 
@@ -25,7 +21,9 @@ public class TokenService {
                         String token = JWT.create()
                                           .withIssuer("Login-System")
                                           .withSubject(user.getLogin())
-                                          .withExpiresAt(generateExpirationDate())
+                                          .withClaim("firstName", user.getFirstName())
+                                          .withClaim("lastName", user.getLastName())
+                                          //.withExpiresAt(generateExpirationDate())
                                           .sign(algorithm);
 
                         return token;
@@ -48,7 +46,7 @@ public class TokenService {
                 }
         }
 
-        private Instant generateExpirationDate(){
+        /*private Instant generateExpirationDate(){
                 return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
-        }
+        }*/
 }

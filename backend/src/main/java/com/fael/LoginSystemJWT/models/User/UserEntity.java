@@ -36,11 +36,26 @@ public class UserEntity implements UserDetails{
         private UserRole role;
 
 
+        @Column(length = 20, nullable = false)
+        private String firstName;
 
-        public UserEntity(String login, String password, UserRole role) {
+        @Column(length = 70, nullable = false)
+        private String lastName;
+
+        @Column(length = 255, nullable = false)
+        private String email;
+
+
+
+
+        public UserEntity(String login, String password, UserRole role, String firstName, String lastName,
+                        String email) {
                 this.login = login;
                 this.password = password;
                 this.role = role;
+                this.firstName = firstName;
+                this.lastName = lastName;
+                this.email = email;
         }
 
         @Override

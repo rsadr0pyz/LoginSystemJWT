@@ -4,6 +4,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Environment } from '../../environment/Environment';
 import { LoginResponseDto } from '../Dtos/LoginResponseDto';
 import { Observable, ObservableInput, catchError, firstValueFrom, lastValueFrom, map, of, tap } from 'rxjs';
+import { LoggedUserDto } from '../Dtos/LoggedUserDto';
+import { JwtService } from './jwt.service';
+import { JwtPayloadDto } from '../Dtos/JwtPayloadDto';
 
 
 
@@ -13,6 +16,8 @@ import { Observable, ObservableInput, catchError, firstValueFrom, lastValueFrom,
 })
 export class UserLoginService{
         
+
+
         private _loginToken: string = "";
 
         public get loginToken(): string {
@@ -23,9 +28,20 @@ export class UserLoginService{
                 this._loginToken = value;
         }
 
+
+        private _loggedUser ?: LoggedUserDto;
+
+        public get loggedUser(): LoggedUserDto | undefined{
+                return this._loggedUser;
+        }
+
+        private set loggedUser(value: LoggedUserDto) {
+                this._loggedUser = value;
+        }
+
         private readonly authUrl = `${Environment.ApiBaseUrl}/auth`;
 
-        constructor(private http: HttpClient) { 
+        constructor(private http: HttpClient, private jwtService: JwtService) { 
                 let token = window.localStorage.getItem("loginToken");
                 if(token != null){
                         this.loginToken = token;
@@ -33,7 +49,7 @@ export class UserLoginService{
         }
 
         public async login(loginDto: LoginDto): Promise<boolean> {
-                let succed = await lastValueFrom(this.http.post<LoginResponseDto>(`${this.authUrl}/login`, loginDto)
+                let succeed = await lastValueFrom(this.http.post<LoginResponseDto>(`${this.authUrl}/login`, loginDto)
                                         .pipe(
                                                 tap(res =>{
                                                         this.loginToken = res.token
@@ -44,7 +60,15 @@ export class UserLoginService{
                                         )
                                 );
                 
-                return succed;
+                if(succeed){
+                        let payload = this.jwtService.decodePayload<JwtPayloadDto>(this.loginToken);
+                        if(payload != null){
+                                this.loggedUser = payload;
+                        }else{
+                                succeed = false;
+                        }
+                }                                
+                return succeed;
         }
 
         public logOut(): void{

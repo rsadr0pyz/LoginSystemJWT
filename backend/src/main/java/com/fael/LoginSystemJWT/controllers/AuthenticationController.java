@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fael.LoginSystemJWT.dtos.LoginDto;
 import com.fael.LoginSystemJWT.dtos.LoginResponseDto;
 import com.fael.LoginSystemJWT.dtos.RegisterDto;
-import com.fael.LoginSystemJWT.infra.security.TokenService;
 import com.fael.LoginSystemJWT.models.User.UserEntity;
 import com.fael.LoginSystemJWT.repositories.UserRepository;
+import com.fael.LoginSystemJWT.services.TokenService;
 
 @RestController
 @RequestMapping("auth")
@@ -52,7 +52,9 @@ public class AuthenticationController {
                 }
 
                 String encryptedPassword = passwordEncoder.encode(registerDto.password());
-                UserEntity user = new UserEntity(registerDto.login(), encryptedPassword, registerDto.role());
+                
+                UserEntity user = new UserEntity(registerDto.login(), encryptedPassword, registerDto.role(), 
+                                                registerDto.firstName(), registerDto.lastName(), registerDto.email());
 
                 userRepository.save(user);
 

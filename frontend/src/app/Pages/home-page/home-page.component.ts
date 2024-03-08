@@ -16,6 +16,8 @@ export class HomePageComponent implements OnInit {
 
         products: ProductDto[] = [];
 
+        loggedUser = this.userLoginService.loggedUser;
+
         public get isLoggedIn() {
                 return this.userLoginService.isLoggedIn;
         }
