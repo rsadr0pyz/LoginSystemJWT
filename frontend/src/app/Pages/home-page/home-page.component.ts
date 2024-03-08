@@ -4,11 +4,12 @@ import { UserLoginService } from '../../Services/user-login.service';
 import { RouterModule } from '@angular/router';
 import { ProductDto } from '../../Dtos/ProductDto';
 import { ProductsService } from '../../Services/products.service';
+import { ProductsTableComponent } from '../../Components/products-table/products-table.component';
 
 @Component({
         selector: 'app-home-page',
         standalone: true,
-        imports: [CommonModule, RouterModule],
+        imports: [CommonModule, RouterModule, ProductsTableComponent],
         templateUrl: './home-page.component.html',
         styleUrl: './home-page.component.css'
 })

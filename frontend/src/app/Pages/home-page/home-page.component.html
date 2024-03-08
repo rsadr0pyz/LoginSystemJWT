@@ -6,12 +6,7 @@
         <p>Products:</p>
         <br>
 
-        <ng-container *ngFor="let prod of products">
-                <br>
-                <p>Name: {{prod.name}}</p>
-                <p>Price: {{prod.price}}</p>
-                <p>Amount: {{prod.amount}}</p>
-        </ng-container>
+        <app-products-table [productList]="products"></app-products-table>
         
 
 </ng-container>

@@ -1,0 +1,47 @@
+<div class="flex justify-between items-center mb-4 mt-4">
+        <input type="text" placeholder="Search" class="w-full border  p-2 rounded-lg">
+        <select class="border  p-2 rounded-lg">
+                <option value=""> Test </option>
+        </select>
+</div>
+
+
+<table class="w-full border-4">
+        <thead>
+                <tr>
+                        <th class="p-3 text-center bg-gray-200">#</th>
+                        <th class="p-3 text-center bg-gray-200" *ngFor="let key of validKeys">{{key.toString()}}</th>
+                        <th *ngIf="collapseComponentModel != null" class="p-3 text-center bg-gray-200"> Coll/Exp</th>
+                </tr>
+        </thead>
+        <tbody>
+                <ng-container *ngFor="let data of dataList; let i = index">
+                        <tr class="border-2">
+                                <td class="p-3 border-2 text-center">{{i+1}}</td>
+
+                                <td class="p-3 border-2 text-center" *ngFor="let key of validKeys">
+                                        {{data[key]}}
+                                </td>
+
+                                <td *ngIf="collapseComponentModel != null" class="text-center">
+                                        <button (click)="toggle(i)">
+                                                {{collapseState[i] ? "Expand": "Collapse"}}
+                                        </button>
+                                </td>
+                        </tr>
+                        <tr *ngIf="!collapseState[i] && collapseComponentModel != null">
+                                <td attr.colspan={{validKeys.length+2}}> <!-- +1 for the # column, +1 for the Coll/Exp column -->
+                                        <ng-container *ngComponentOutlet="collapseComponentModel; inputs: componentInputs(i)"></ng-container>
+                                </td>
+                        </tr>
+                        
+                </ng-container>
+        </tbody>
+</table>
+
+<div class="mt-4 flex items-center justify-center">
+        <button class="text-cyan-500 border-4 py-2 px-4 rounded-l-lg cursor-pointer mr-5" (click)="changePage(-1)"> Previous </button>
+        <p class="py-2 px-4 bg-cyan-500 text-white"> {{pageNumber}} </p>
+        <button class="text-cyan-500 border-4 py-2 px-4 cursor-pointer rounded-r-lg ml-5" (click)="changePage(1)"> Next </button>
+</div>
+

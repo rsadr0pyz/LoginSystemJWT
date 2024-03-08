@@ -45,11 +45,12 @@ export class UserLoginService{
                 let token = window.localStorage.getItem("loginToken");
                 if(token != null){
                         this.loginToken = token;
+                        this.loadPayload();
                 }
         }
 
         public async login(loginDto: LoginDto): Promise<boolean> {
-                let succeed = await lastValueFrom(this.http.post<LoginResponseDto>(`${this.authUrl}/login`, loginDto)
+                let gotToken = await lastValueFrom(this.http.post<LoginResponseDto>(`${this.authUrl}/login`, loginDto)
                                         .pipe(
                                                 tap(res =>{
                                                         this.loginToken = res.token
@@ -60,14 +61,7 @@ export class UserLoginService{
                                         )
                                 );
                 
-                if(succeed){
-                        let payload = this.jwtService.decodePayload<JwtPayloadDto>(this.loginToken);
-                        if(payload != null){
-                                this.loggedUser = payload;
-                        }else{
-                                succeed = false;
-                        }
-                }                                
+                let succeed = gotToken && this.loadPayload();                             
                 return succeed;
         }
 
@@ -78,6 +72,17 @@ export class UserLoginService{
 
         public get isLoggedIn(): boolean {
                 return this.loginToken.length > 0;
+        }
+
+        private loadPayload(): boolean{
+                let payload = this.jwtService.decodePayload<JwtPayloadDto>(this.loginToken);
+
+                if(payload != null){
+                        this.loggedUser = payload;
+                        return true;
+                }else{
+                        return false;
+                }
         }
 
 }
