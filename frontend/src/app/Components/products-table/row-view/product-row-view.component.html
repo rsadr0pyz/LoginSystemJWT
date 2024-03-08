@@ -1,6 +1,3 @@
 <div class="text-center">
-        <p>name: {{product.name}}</p>
-        <p>description: {{product.description}}</p>
-        <p>price: {{product.price}}</p>
-        <p>amount: {{product.amount}}</p>
+        <app-product-form [baseProduct]="product" (onSubmitEvent)="onSubmitProductForm($event)"></app-product-form>
 </div>

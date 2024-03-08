@@ -34,7 +34,7 @@ export class LoginFormComponent {
 
         displayLoginError: boolean = false
 
-        OnSubmit(): void {
+        onSubmit(): void {
                 if (this.loginForm.valid) {
                         let loginObj: LoginDto = {
                                 login: this.loginForm.controls["login"].value,
