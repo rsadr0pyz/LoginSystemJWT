@@ -1,1 +1,16 @@
-<p>login-form works!</p>
+<form [formGroup]="loginForm" (ngSubmit)="OnSubmit()">
+
+        <p *ngIf="displayLoginError" style="color: red;">Incorrect login or password</p>
+
+        <label for="login">Login</label><br>
+        <input id="login" formControlName="login">
+        
+        <br><br>
+
+        <label for="password">Password</label><br>
+        <input id="password" formControlName="password">
+
+        <br><br>
+
+        <button type="submit">Login</button>
+</form> 
