@@ -1,14 +1,18 @@
-<button *ngIf="!isLoggedIn" routerLink="/login">Log in</button>
+<div class="p-10">
 
-<ng-container *ngIf="isLoggedIn">
-        <p style="display: inline;">Welcome, {{loggedUser?.firstName}}! </p> <button (click)="logout()"><b>Logout</b></button>
-        <br>
-        <p>Products:</p>
-        <br>
+        <button *ngIf="!isLoggedIn" routerLink="/login">Log in</button>
 
-        <div class="p-10">
-                <app-products-table [productList]="products"></app-products-table>
-        </div>
+        <ng-container *ngIf="isLoggedIn">
+                <p style="display: inline;">Welcome, {{loggedUser?.firstName}}! </p> <button
+                        class="border-2 text-blue-500" (click)="logout()"><b>Logout</b></button>
+                <br>
+                <p>Products:</p>
+                <br>
 
-</ng-container>
+                <div class="p-10">
+                        <app-products-table [productList]="products"></app-products-table>
+                </div>
 
+        </ng-container>
+
+</div>
