@@ -26,6 +26,11 @@ export class ProductsService{
         }
 
         public update(product: Product){
-                
+                var reqHeader = new HttpHeaders({ 
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer' + this.loginService.loginToken
+                });
+
+                this.http.post(`${this.apiBaseUrl}/update/${product.id}`, product, {headers: reqHeader}).subscribe();
         }
 }
