@@ -2,21 +2,39 @@
 
         <label for="name">name</label><br>
         <input class="border-2" id="name" formControlName="name">
+        <ng-container *ngIf="productForm.controls['name'].getError('required')">
+                <br><p class="text-red-400 inline">This field can't be empty</p>
+        </ng-container>
 
         <br><br>
 
         <label for="description">description</label><br>
         <input class="border-2" id="description" formControlName="description">
-
+        <ng-container *ngIf="productForm.controls['description'].getError('required')">
+                <br><p class="text-red-400 inline">This field can't be empty</p>
+        </ng-container>
+        
         <br><br>
 
         <label for="price">price</label><br>
         <input class="border-2" id="price" formControlName="price">
+        <ng-container *ngIf="productForm.controls['price'].getError('required')">
+                <br><p class="text-red-400 inline">This field can't be empty</p>
+        </ng-container>
+        <ng-container *ngIf="productForm.controls['price'].getError('pattern')">
+                <br><p class="text-red-400 inline">This field must be a number</p>
+        </ng-container>
 
         <br><br>
 
         <label for="amount">amount</label><br>
         <input class="border-2" id="amount" formControlName="amount">
+        <ng-container *ngIf="productForm.controls['amount'].getError('required')">
+                <br><p class="text-red-400 inline">This field can't be empty</p>
+        </ng-container>
+        <ng-container *ngIf="productForm.controls['amount'].getError('pattern')">
+                <br><p class="text-red-400 inline">This field must be an integer number</p>
+        </ng-container>
 
         <br><br>
 

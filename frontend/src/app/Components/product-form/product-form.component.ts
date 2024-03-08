@@ -37,26 +37,30 @@ export class ProductFormComponent implements OnInit {
                                 nonNullable: true,
                                 validators: [Validators.required]
                         }),
-                        price: new FormControl(this.baseProduct.price, {
+                        price: new FormControl<number>(this.baseProduct.price, {
                                 nonNullable: true,
-                                validators: [Validators.required]
+                                validators: [Validators.required, Validators.pattern("^[0-9]*\.[0-9]*")]
                         }),
-                        amount: new FormControl(this.baseProduct.amount, {
+                        amount: new FormControl<number>(this.baseProduct.amount, {
                                 nonNullable: true,
-                                validators: [Validators.required]
+                                validators: [Validators.required, Validators.pattern("^[0-9]*")]
                         }),
 
                 })
         }
 
         onSubmit(): void {
-                if (this.productForm.valid) {
+
+                if (this.productForm.valid && this.productForm.dirty) {
                         let newProduct: ProductDto = {
                                 name: this.productForm.controls["name"].value,
                                 description: this.productForm.controls["description"].value,
-                                price: this.productForm.controls["price"].value,
-                                amount: this.productForm.controls["amount"].value,
-                        }
+                                price: parseFloat(this.productForm.controls["price"].value),
+                                amount: parseInt(this.productForm.controls["amount"].value),
+                        }       
+                        newProduct.price = Number.parseFloat(newProduct.price.toFixed(4));
+
+                        this.productForm.markAsPristine();
 
                         this.onSubmitEvent.emit(newProduct);
                 }

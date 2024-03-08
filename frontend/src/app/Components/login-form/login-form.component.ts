@@ -35,7 +35,7 @@ export class LoginFormComponent {
         displayLoginError: boolean = false
 
         onSubmit(): void {
-                if (this.loginForm.valid) {
+                if (this.loginForm.valid && this.loginForm.dirty) {
                         let loginObj: LoginDto = {
                                 login: this.loginForm.controls["login"].value,
                                 password: this.loginForm.controls["password"].value,
@@ -50,6 +50,7 @@ export class LoginFormComponent {
                                 }
 
                         })
+                        this.loginForm.markAsPristine();
                 }
         }
 }
