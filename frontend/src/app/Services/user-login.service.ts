@@ -6,7 +6,8 @@ import { LoginResponseDto } from '../Dtos/LoginResponseDto';
 import { catchError, lastValueFrom, map, of, tap } from 'rxjs';
 import { User } from '../Models/User';
 import { JwtService } from './jwt.service';
-import { JwtPayloadUser } from '../Models/JwtPayloadDto';
+import { UserJwtPayload } from '../Models/UserJwtPayload';
+import { UserRole } from '../Models/UserRole';
 
 
 
@@ -73,10 +74,10 @@ export class UserLoginService{
         }
 
         private loadPayload(): boolean{
-                let payload = this.jwtService.decodePayload<JwtPayloadUser>(this.loginToken);
+                let user = this.jwtService.getUserFromJwtToken(this.loginToken);
 
-                if(payload != null){
-                        this.loggedUser = payload;
+                if(user != null){
+                        this.loggedUser = user;
                         return true;
                 }else{
                         return false;

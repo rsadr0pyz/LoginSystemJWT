@@ -21,8 +21,9 @@ export class HomePageComponent implements OnInit {
 
 
         get isAdmin(){
-                return this.userLoginService.loggedUser?.role == UserRole.ADMIN;
+                return this.loggedUser?.role == UserRole.ADMIN;
         }
+        
         loggedUser = this.userLoginService.loggedUser;
 
         public get isLoggedIn() {
