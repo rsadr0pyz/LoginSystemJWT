@@ -14,12 +14,14 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Table(name = "Users")
 @Entity(name = "user")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 public class UserEntity implements UserDetails{
         
         @Id
@@ -35,17 +37,14 @@ public class UserEntity implements UserDetails{
         @Column(length = 255, nullable = false)
         private UserRole role;
 
-
-        @Column(length = 20, nullable = false)
+        @Column(length = 20)
         private String firstName;
 
-        @Column(length = 70, nullable = false)
+        @Column(length = 70)
         private String lastName;
 
-        @Column(length = 255, nullable = false)
+        @Column(length = 255)
         private String email;
-
-
 
 
         public UserEntity(String login, String password, UserRole role, String firstName, String lastName,
@@ -56,6 +55,12 @@ public class UserEntity implements UserDetails{
                 this.firstName = firstName;
                 this.lastName = lastName;
                 this.email = email;
+        }
+
+        public UserEntity(String login, String password, UserRole role) {
+                this.login = login;
+                this.password = password;
+                this.role = role;
         }
 
         @Override

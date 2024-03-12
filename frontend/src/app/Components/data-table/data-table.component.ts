@@ -78,7 +78,6 @@ export class DataTableComponent<T extends object> implements OnInit{
 
         ngOnInit(): void {
                 this.updateVisibleData();
-                console.log(this.visibleData);
         }
 
 }

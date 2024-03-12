@@ -1,12 +1,13 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { LoginDto } from '../Dtos/LoginDto';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Environment } from '../../environment/Environment';
 import { LoginResponseDto } from '../Dtos/LoginResponseDto';
-import { Observable, ObservableInput, catchError, firstValueFrom, lastValueFrom, map, of, tap } from 'rxjs';
-import { LoggedUserDto } from '../Dtos/LoggedUserDto';
+import { catchError, lastValueFrom, map, of, tap } from 'rxjs';
+import { User } from '../Models/User';
 import { JwtService } from './jwt.service';
-import { JwtPayloadDto } from '../Dtos/JwtPayloadDto';
+import { UserJwtPayload } from '../Models/UserJwtPayload';
+import { UserRole } from '../Models/UserRole';
 
 
 
@@ -16,8 +17,6 @@ import { JwtPayloadDto } from '../Dtos/JwtPayloadDto';
 })
 export class UserLoginService{
         
-
-
         private _loginToken: string = "";
 
         public get loginToken(): string {
@@ -29,13 +28,13 @@ export class UserLoginService{
         }
 
 
-        private _loggedUser ?: LoggedUserDto;
+        private _loggedUser ?: User;
 
-        public get loggedUser(): LoggedUserDto | undefined{
+        public get loggedUser(): User | undefined{
                 return this._loggedUser;
         }
 
-        private set loggedUser(value: LoggedUserDto) {
+        private set loggedUser(value: User) {
                 this._loggedUser = value;
         }
 
@@ -75,10 +74,10 @@ export class UserLoginService{
         }
 
         private loadPayload(): boolean{
-                let payload = this.jwtService.decodePayload<JwtPayloadDto>(this.loginToken);
+                let user = this.jwtService.getUserFromJwtToken(this.loginToken);
 
-                if(payload != null){
-                        this.loggedUser = payload;
+                if(user != null){
+                        this.loggedUser = user;
                         return true;
                 }else{
                         return false;
