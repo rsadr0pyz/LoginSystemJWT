@@ -44,7 +44,7 @@ export class LoginFormComponent {
                         this.loginService.login(loginObj).then(succeed => {
                                 if (succeed) {
                                         this.displayLoginError = false;
-                                        this?.onLogin.emit();
+                                        this.onLogin.emit();
                                 } else {
                                         this.displayLoginError = true;
                                 }

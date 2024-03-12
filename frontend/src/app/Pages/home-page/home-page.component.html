@@ -2,19 +2,27 @@
 
         <button *ngIf="!isLoggedIn" routerLink="/login">Log in</button>
 
-        <ng-container *ngIf="isLoggedIn">
-                
+        <ng-container *ngIf="isLoggedIn">      
 
+                <p style="display: inline;">Welcome, {{loggedUser?.firstName}}! </p> 
+                <button class="border-2 text-blue-500" (click)="logout()"><b>Logout</b></button>
 
-                <p style="display: inline;">Welcome, {{loggedUser?.firstName}}! </p> <button
-                        class="border-2 text-blue-500" (click)="logout()"><b>Logout</b></button>
-                <br>
-                <button>Products</button><br>
-                <button *ngIf="isAdmin">Users</button>
-                <br>
+                <br><br>
+                <div class="flex justify-evenly">
+                        @for (tab of tabs; track $index) {
+                                <button 
+                                        [ngClass]="{'text-blue-700': selectedTab == $index}"
+                                        (click)="selectedTab = $index">
+                                
+                                        {{tab.tabName}}
+                                </button>
+                        }
 
-                <div class="p-10">
-                        <app-products-table [productList]="products"></app-products-table>
+                </div>
+                <br><br>
+
+                <div>
+                        <ng-container *ngComponentOutlet="tabs[selectedTab].comp"></ng-container>
                 </div>
 
         </ng-container>

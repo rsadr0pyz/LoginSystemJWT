@@ -1,0 +1,14 @@
+
+@if (state != 'form') {
+        <button (click)="state = 'form'">New Product</button>
+}
+
+@switch (state) {
+
+        @case ('table') {
+                <app-products-table [productList]="products"></app-products-table>
+        }
+        @case ('form') {
+                <app-product-form (onSubmitEvent)="onFormSubmit($event)"></app-product-form>
+        }
+}

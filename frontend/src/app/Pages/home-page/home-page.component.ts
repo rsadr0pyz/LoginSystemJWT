@@ -7,18 +7,17 @@ import { ProductsService } from '../../Services/products.service';
 import { ProductsTableComponent } from '../../Components/products-table/products-table.component';
 import { Product } from '../../Models/Product';
 import { UserRole } from '../../Models/UserRole';
+import { ProductManagementTabComponent } from '../../Components/product-management-tab/product-management-tab.component';
+import { UserManagementTabComponent } from '../../Components/user-management-tab/user-management-tab.component';
 
 @Component({
         selector: 'app-home-page',
         standalone: true,
-        imports: [CommonModule, RouterModule, ProductsTableComponent],
+        imports: [CommonModule, RouterModule, ProductManagementTabComponent, UserManagementTabComponent],
         templateUrl: './home-page.component.html',
         styleUrl: './home-page.component.css'
 })
-export class HomePageComponent implements OnInit {
-
-        products: Product[] = [];
-
+export class HomePageComponent{
 
         get isAdmin(){
                 return this.loggedUser?.role == UserRole.ADMIN;
@@ -26,19 +25,19 @@ export class HomePageComponent implements OnInit {
         
         loggedUser = this.userLoginService.loggedUser;
 
+        tabs: {tabName: string, comp: any}[] = [
+                {tabName: "Products", comp: ProductManagementTabComponent},
+                {tabName: "Users", comp: UserManagementTabComponent}
+        ]
+
+        selectedTab = 0;
+
         public get isLoggedIn() {
                 return this.userLoginService.isLoggedIn;
         }
 
-        constructor(private userLoginService: UserLoginService, private productsService: ProductsService) { }
+        constructor(private userLoginService: UserLoginService) { }
 
-        ngOnInit(): void {
-                if (this.isLoggedIn) {
-                        this.productsService.getAll().subscribe(res => {
-                                this.products = res;
-                        })
-                }
-        }
 
         logout(){
                 this.userLoginService.logOut();
