@@ -23,6 +23,8 @@ public class TokenService {
                                           .withSubject(user.getLogin())
                                           .withClaim("firstName", user.getFirstName())
                                           .withClaim("lastName", user.getLastName())
+                                          .withClaim("email", user.getEmail())
+                                          .withClaim("role", user.getRole().name())
                                           //.withExpiresAt(generateExpirationDate())
                                           .sign(algorithm);
 

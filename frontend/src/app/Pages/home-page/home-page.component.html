@@ -3,10 +3,15 @@
         <button *ngIf="!isLoggedIn" routerLink="/login">Log in</button>
 
         <ng-container *ngIf="isLoggedIn">
+                
+
+
                 <p style="display: inline;">Welcome, {{loggedUser?.firstName}}! </p> <button
                         class="border-2 text-blue-500" (click)="logout()"><b>Logout</b></button>
                 <br>
-                <p>Products:</p>
+                <button>Products</button><br>
+                <p>{{loggedUser?.role}}</p>
+                <button *ngIf="isAdmin">Users</button>
                 <br>
 
                 <div class="p-10">

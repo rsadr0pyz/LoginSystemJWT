@@ -6,6 +6,7 @@ import { ProductDto } from '../../Dtos/ProductDto';
 import { ProductsService } from '../../Services/products.service';
 import { ProductsTableComponent } from '../../Components/products-table/products-table.component';
 import { Product } from '../../Models/Product';
+import { UserRole } from '../../Models/UserRole';
 
 @Component({
         selector: 'app-home-page',
@@ -18,6 +19,10 @@ export class HomePageComponent implements OnInit {
 
         products: Product[] = [];
 
+
+        get isAdmin(){
+                return this.userLoginService.loggedUser?.role == UserRole.ADMIN;
+        }
         loggedUser = this.userLoginService.loggedUser;
 
         public get isLoggedIn() {
